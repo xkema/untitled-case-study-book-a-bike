@@ -9,7 +9,7 @@ const getVehicleTypeOptions = (bikes: any[]) => {
     if (!vehicleType) {
       return <option key="malformed" value="malformed" disabled>malformed</option>
     }
-    return <option key={vehicleType} value={vehicleType}>{vehicleType}</option>
+    return <option key={vehicleType} value={vehicleType}>{vehicleType.toLowerCase().replace(/\b\w/g, (s: any) => s.toUpperCase())}</option>
   })
 }
 

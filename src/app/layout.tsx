@@ -17,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header>header</header>
-        {children}
-        <footer>footer</footer>
+        <header className="bg-stone-50 text-center px-8 py-8 text-stone-700 border-b border-b-stone-200">Book a Bike!</header>
+        {children} {/* <main> */}
+        <footer className="bg-gradient-to-r from-stone-800 to-stone-900 text-stone-200 text-center px-8 py-8">
+          <a href="https://github.com/xkema?tab=repositories">GitHub</a>
+        </footer>
       </body>
     </html>
   );

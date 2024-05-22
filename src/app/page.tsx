@@ -39,46 +39,56 @@ export default function Home() {
   }, [countdownDuration, data, mutate])
 
   return (
-    <main>
-      {/* search */}
-      <input type="text" placeholder="search bike_id" value={searchQuery} onChange={event => {
-        setSearchQuery(event.target.value)
-        setFilterQuery('')
-        if (event.target.value === '') {
-          setPageIndex(1)
-        } else {
-          setPageIndex(-1)
-        }
-      }} />
+    <main className="container mx-auto my-8 flex flex-col gap-8 p-4">
+      <div className="flex flex-col gap-2 md:flex-row md:gap-4">
+        {/* search */}
+        <input type="text" placeholder="Search with Bike ID" value={searchQuery} onChange={event => {
+          setSearchQuery(event.target.value)
+          setFilterQuery('')
+          if (event.target.value === '') {
+            setPageIndex(1)
+          } else {
+            setPageIndex(-1)
+          }
+        }} />
 
-      {/* filter */}
-      <select value={filterQuery} onChange={event => setFilterQuery(event.target.value)}>
-        <option value="">choose a vehicle type</option>
-        {
-          !isLoading && Array.isArray(data.data.bikes) && getVehicleTypeOptions(data.data.bikes)
-        }
-        {
-          !isLoading && data.data.bike && (data.data.bike !== null) && getVehicleTypeOptions([data.data.bike])
-        }
-      </select>
+        {/* filter */}
+        <select value={filterQuery} onChange={event => setFilterQuery(event.target.value)}>
+          <option value="">choose a vehicle type</option>
+          {
+            !isLoading && Array.isArray(data.data.bikes) && getVehicleTypeOptions(data.data.bikes)
+          }
+          {
+            !isLoading && data.data.bike && (data.data.bike !== null) && getVehicleTypeOptions([data.data.bike])
+          }
+        </select>
 
-      {/* ttl timer */}
-      <div>
-        {countdownDuration}
-      </div>
+        <div className="flex flex-col items-end ml-auto">
+          {/* ttl timer */}
+          <div>
+            <span className="font-bold">TTL: </span>
+            <span className="bg-black text-white font-light text-xs leading-6 inline-block min-w-6 font-mono text-center rounded-md">
+              {countdownDuration}
+            </span>
+          </div>
 
-      {/* total bookings */}
-      <div>
-        {
-          !isLoading && Array.isArray(data.data.bikes) && getTotalBookings(data.data.bikes)
-        }
-        {
-          !isLoading && data.data.bike && data.data.bike !== null && getTotalBookings([data.data.bike])
-        }
+          {/* total bookings */}
+          <div>
+            <span className="font-bold">Total Bookings: </span>
+            <span>
+              {
+                !isLoading && Array.isArray(data.data.bikes) && getTotalBookings(data.data.bikes)
+              }
+              {
+                !isLoading && data.data.bike && data.data.bike !== null && getTotalBookings([data.data.bike])
+              }
+            </span>
+          </div>
+        </div>
       </div>
 
       {/* items */}
-      <div>
+      <div className="flex flex-col border border-black/25 rounded-md p-2">
         {
           !isLoading && Array.isArray(data.data.bikes) && getListItems(data.data.bikes, setDetailsModalID)
         }
@@ -88,12 +98,16 @@ export default function Home() {
       </div>
 
       {/* pagination */}
-      <select value={pageIndex} onChange={event => setPageIndex(parseInt(event.target.value))}>
-        <option value="-1">choose page</option>
-        {
-          !isLoading && generatePagination(data.total_count)
-        }
-      </select>
+      <div className="flex items-center justify-center gap-4">
+        <button>Prev</button>
+        <select value={pageIndex} onChange={event => setPageIndex(parseInt(event.target.value))} className="m-0">
+          <option value="-1">choose page</option>
+          {
+            !isLoading && generatePagination(data.total_count)
+          }
+        </select>
+        <button>Next</button>
+      </div>
 
       {/* overlay */}
       <div>
