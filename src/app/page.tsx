@@ -99,14 +99,14 @@ export default function Home() {
 
       {/* pagination */}
       <div className="flex items-center justify-center gap-4">
-        <button>Prev</button>
+        <button disabled={isLoading || pageIndex < 2} onClick={event => setPageIndex(p => p - 1)}>Prev</button>
         <select value={pageIndex} onChange={event => setPageIndex(parseInt(event.target.value))} className="m-0">
           <option value="-1">choose page</option>
           {
             !isLoading && generatePagination(data.total_count)
           }
         </select>
-        <button>Next</button>
+        <button disabled={isLoading || !data.nextPage} onClick={event => setPageIndex(p => p + 1)}>Next</button>
       </div>
 
       {/* overlay */}
